@@ -31,7 +31,6 @@ public class IndexServlet extends HttpServlet {
             e.printStackTrace();
             uri = "/error/error.jsp";
         }
-
         req.getRequestDispatcher(uri).forward(req,resp);
 
     }

@@ -21,14 +21,15 @@ import java.util.List;
 /**
  * Created by AnKh on 2017/4/3.
  */
-public class LoginServlet extends HttpServlet {
+public class AdminServlet extends HttpServlet {
     private AdminService adminService = new AdminServiceImpl();
     private String uri;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        String method = req.getMethod();
+        String method = req.getParameter("method");
+        //System.out.println(method);
         if ("login".equals(method)){
             login(req,resp);
         }else if("out".equals(method)){
@@ -47,15 +48,16 @@ public class LoginServlet extends HttpServlet {
         admin.setPassword(password);
 
         try {
-            Admin logininfo = adminService.findByNameAndPwd(admin);
-            if(logininfo == null){
+            Admin loginInfo = adminService.findByNameAndPwd(admin);
+            System.out.println(loginInfo);
+            if(loginInfo == null){
                 uri = "/login.jsp";
             }else{
-                request.getSession().setAttribute("loginInfo",logininfo);
+                request.getSession().setAttribute("loginInfo",loginInfo);
                 ServletContext servletContext = getServletContext();
                 List<Admin> onlineList = (List<Admin>) servletContext.getAttribute("onlineList");
                 if (onlineList != null){
-                    onlineList.add(logininfo);
+                    onlineList.add(loginInfo);
                 }
                 uri = "/index";
             }

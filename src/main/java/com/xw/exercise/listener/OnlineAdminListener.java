@@ -20,6 +20,7 @@ public class OnlineAdminListener implements ServletContextListener {
 
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         ServletContext servletContext = servletContextEvent.getServletContext();
+
         Object obj = servletContext.getAttribute("onlineList");
         if (obj != null){
             servletContext.removeAttribute("onlineList");
